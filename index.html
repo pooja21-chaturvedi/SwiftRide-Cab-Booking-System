@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SwiftRide – Premium Cab Booking</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-wrap">
+    <a class="nav-logo" href="#" onclick="navigate('home');return false;">
+      <img src="images/logo.png" alt="SwiftRide"/>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" class="nav-link active" data-page="home"    onclick="navigate('home');return false;">Home</a></li>
+      <li><a href="#" class="nav-link"         data-page="book"    onclick="navigate('book');return false;">Book Ride</a></li>
+      <li><a href="#" class="nav-link"         data-page="history" onclick="navigate('history');return false;">Ride History</a></li>
+      <li><a href="#" class="nav-link"         data-page="profile" onclick="navigate('profile');return false;">My Profile</a></li>
+      <li><a href="#" class="nav-link"         data-page="help"    onclick="navigate('help');return false;">Help</a></li>
+      <li><a href="#" class="nav-link"         data-page="about"   onclick="navigate('about');return false;">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle Dark Mode">
+        <i class="fa-solid fa-moon" id="themeIcon"></i>
+      </button>
+      <button class="btn-book-nav" onclick="navigate('book')">Book Now</button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ PAGE: HOME ═══════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow g1"></div>
+    <div class="hero-glow g2"></div>
+    <div class="hero-glow g3"></div>
+    <div class="hero-left">
+      <div class="hero-pill"><span class="pill-dot"></span> Live in 200+ cities across India</div>
+      <h1 class="hero-h1">Your Premium<br/><span class="hero-accent">Ride Partner</span></h1>
+      <p class="hero-p">Book verified cabs in seconds. Transparent pricing, professional drivers, 24/7 support. Your safety is our priority.</p>
+      <div class="hero-actions">
+        <button class="btn-hero-primary" onclick="navigate('book')"><i class="fa-solid fa-car"></i> Book a Ride</button>
+        <button class="btn-hero-outline" onclick="navigate('about')"><i class="fa-solid fa-play"></i> How It Works</button>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><span class="trust-num">2M+</span><span class="trust-lbl">Happy Riders</span></div>
+        <div class="trust-div"></div>
+        <div class="trust-item"><span class="trust-num">50K+</span><span class="trust-lbl">Expert Drivers</span></div>
+        <div class="trust-div"></div>
+        <div class="trust-item"><span class="trust-num">4.8★</span><span class="trust-lbl">Average Rating</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <!-- Booking card floating widget -->
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <span><i class="fa-solid fa-bolt text-amber"></i> Quick Booking</span>
+          <div class="live-tag"><span class="blink-dot"></span> Live</div>
+        </div>
+        <div class="quick-field">
+          <div class="qf-icon green-dot"><i class="fa-solid fa-circle"></i></div>
+          <input type="text" id="heroPickup" placeholder="Pickup location..." class="qf-input"/>
+        </div>
+        <div class="route-connector">
+          <div class="rc-line"></div>
+        </div>
+        <div class="quick-field">
+          <div class="qf-icon orange-dot"><i class="fa-solid fa-location-dot"></i></div>
+          <input type="text" id="heroDrop" placeholder="Where to?" class="qf-input"/>
+        </div>
+        <div class="quick-row">
+          <div class="quick-field half">
+            <div class="qf-icon"><i class="fa-solid fa-calendar"></i></div>
+            <input type="date" id="heroDate" class="qf-input"/>
+          </div>
+          <div class="quick-field half">
+            <div class="qf-icon"><i class="fa-solid fa-clock"></i></div>
+            <input type="time" id="heroTime" class="qf-input"/>
+          </div>
+        </div>
+        <button class="btn-find-ride" onclick="heroSearch()">
+          <i class="fa-solid fa-magnifying-glass"></i> Find Available Cabs
+        </button>
+        <!-- Cab availability -->
+        <div class="avail-strip">
+          <div class="avail-item"><i class="fa-solid fa-car-side"></i><span>Mini</span><b class="av-green">5</b></div>
+          <div class="avail-item"><i class="fa-solid fa-car"></i><span>Sedan</span><b class="av-green">8</b></div>
+          <div class="avail-item"><i class="fa-solid fa-truck-pickup"></i><span>SUV</span><b class="av-yellow">2</b></div>
+          <div class="avail-item"><i class="fa-solid fa-crown"></i><span>Luxury</span><b class="av-red">1</b></div>
+          <div class="avail-item"><i class="fa-solid fa-motorcycle"></i><span>Bike</span><b class="av-green">12</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="section-tag">Simple Process</div>
+    <h2 class="section-h2">Book Your Ride in 3 Steps</h2>
+    <p class="section-sub">From search to confirmation in under 60 seconds</p>
+    <div class="steps-row">
+      <div class="step-card">
+        <div class="step-num-circle">01</div>
+        <div class="step-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <h4>Enter Locations</h4>
+        <p>Type your pickup and drop address. We support all major cities across India.</p>
+      </div>
+      <div class="step-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      <div class="step-card">
+        <div class="step-num-circle">02</div>
+        <div class="step-icon"><i class="fa-solid fa-car"></i></div>
+        <h4>Choose Your Cab</h4>
+        <p>Pick from Mini, Sedan, SUV, Luxury, or Bike Taxi. See live prices instantly.</p>
+      </div>
+      <div class="step-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      <div class="step-card">
+        <div class="step-num-circle">03</div>
+        <div class="step-icon"><i class="fa-solid fa-check-circle"></i></div>
+        <h4>Ride Confirmed</h4>
+        <p>Pay securely and your driver arrives. Track in real time until pickup.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section">
+    <div class="section-tag">Our Fleet</div>
+    <h2 class="section-h2">Choose Your Ride Type</h2>
+    <p class="section-sub">From budget rides to luxury experiences — we have the perfect cab for every occasion</p>
+    <div class="services-grid">
+      <div class="svc-card" onclick="navigate('book')">
+        <div class="svc-icon mini"><i class="fa-solid fa-car-side"></i></div>
+        <h3>Mini</h3>
+        <p>Compact & economical for solo or duo trips in the city</p>
+        <div class="svc-details">
+          <span><i class="fa-solid fa-user"></i> 1–4 Seats</span>
+          <span><i class="fa-solid fa-star"></i> 4.3 Rated</span>
+        </div>
+        <div class="svc-price">From <strong>₹15/km</strong></div>
+        <div class="svc-cta">Book Mini <i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+      <div class="svc-card" onclick="navigate('book')">
+        <div class="svc-icon sedan"><i class="fa-solid fa-car"></i></div>
+        <h3>Sedan</h3>
+        <p>Comfortable 4-seater for daily commutes and corporate rides</p>
+        <div class="svc-details">
+          <span><i class="fa-solid fa-user"></i> 1–4 Seats</span>
+          <span><i class="fa-solid fa-star"></i> 4.6 Rated</span>
+        </div>
+        <div class="svc-price">From <strong>₹18/km</strong></div>
+        <div class="svc-cta">Book Sedan <i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+      <div class="svc-card popular" onclick="navigate('book')">
+        <div class="pop-badge">⭐ Most Popular</div>
+        <div class="svc-icon suv"><i class="fa-solid fa-truck-pickup"></i></div>
+        <h3>SUV</h3>
+        <p>Spacious & powerful for families, groups, and outstation trips</p>
+        <div class="svc-details">
+          <span><i class="fa-solid fa-user"></i> 1–6 Seats</span>
+          <span><i class="fa-solid fa-star"></i> 4.7 Rated</span>
+        </div>
+        <div class="svc-price">From <strong>₹22/km</strong></div>
+        <div class="svc-cta">Book SUV <i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+      <div class="svc-card" onclick="navigate('book')">
+        <div class="svc-icon luxury"><i class="fa-solid fa-crown"></i></div>
+        <h3>Luxury</h3>
+        <p>Premium sedans & SUVs for special occasions and VIP travel</p>
+        <div class="svc-details">
+          <span><i class="fa-solid fa-user"></i> 1–4 Seats</span>
+          <span><i class="fa-solid fa-star"></i> 4.9 Rated</span>
+        </div>
+        <div class="svc-price">From <strong>₹35/km</strong></div>
+        <div class="svc-cta">Book Luxury <i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+      <div class="svc-card" onclick="navigate('book')">
+        <div class="svc-icon bike"><i class="fa-solid fa-motorcycle"></i></div>
+        <h3>Bike Taxi</h3>
+        <p>Beat traffic, arrive fast. Perfect for solo riders in peak hours</p>
+        <div class="svc-details">
+          <span><i class="fa-solid fa-user"></i> 1 Seat</span>
+          <span><i class="fa-solid fa-star"></i> 4.4 Rated</span>
+        </div>
+        <div class="svc-price">From <strong>₹8/km</strong></div>
+        <div class="svc-cta">Book Bike <i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY SWIFTRIDE -->
+  <section class="why-section">
+    <div class="why-content">
+      <div class="section-tag">Why Us</div>
+      <h2 class="section-h2">We Don't Just Drive.<br/>We Deliver Trust.</h2>
+      <p class="section-sub" style="text-align:left;">Built on a foundation of safety, transparency, and technology — SwiftRide is the ride partner India trusts.</p>
+      <div class="why-list">
+        <div class="why-item"><div class="wi-icon"><i class="fa-solid fa-shield-halved"></i></div><div><h5>100% Verified Drivers</h5><p>Background checks, police verification & safety training for every driver.</p></div></div>
+        <div class="why-item"><div class="wi-icon"><i class="fa-solid fa-rupee-sign"></i></div><div><h5>Zero Hidden Charges</h5><p>Fare shown before booking. What you see is exactly what you pay.</p></div></div>
+        <div class="why-item"><div class="wi-icon"><i class="fa-solid fa-headset"></i></div><div><h5>24/7 Live Support</h5><p>Our team is always on call for help, complaints, or emergencies.</p></div></div>
+        <div class="why-item"><div class="wi-icon"><i class="fa-solid fa-bolt"></i></div><div><h5>60-Second Booking</h5><p>From search to confirmed booking in under a minute. Every time.</p></div></div>
+      </div>
+    </div>
+    <div class="why-visual">
+      <div class="why-card-stack">
+        <div class="wc top"><i class="fa-solid fa-location-dot"></i><div><b>Live Tracking</b><small>See your driver in real time</small></div></div>
+        <div class="wc mid"><i class="fa-solid fa-lock"></i><div><b>Secure Payment</b><small>UPI, Cards, Cash accepted</small></div></div>
+        <div class="wc bot"><i class="fa-solid fa-star"></i><div><b>Rate Your Ride</b><small>Feedback after every trip</small></div></div>
+        <div class="wc stat-c"><span class="big-num">98%</span><small>Customer Satisfaction</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMO BANNER -->
+  <section class="promo-section">
+    <div class="promo-inner">
+      <div class="promo-left">
+        <div class="promo-tag"><i class="fa-solid fa-gift"></i> Limited Offer</div>
+        <h3>First Ride? Get 50% OFF!</h3>
+        <p>Use code <strong>FIRST50</strong> at checkout and save big on your first ride with SwiftRide.</p>
+      </div>
+      <div class="promo-right">
+        <div class="promo-code-box">
+          <span class="promo-code-text">FIRST50</span>
+          <button class="btn-copy-code" onclick="copyCode()"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+        <button class="btn-claim" onclick="navigate('book')">Claim Offer <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testi-section">
+    <div class="section-tag">Reviews</div>
+    <h2 class="section-h2">What Our Riders Say</h2>
+    <p class="section-sub">Join over 2 million happy riders across India</p>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-avatar">A</div>
+          <div><strong>Ayesha Kapoor</strong><span>Delhi</span></div>
+          <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <p>"SwiftRide is honestly the best cab service I've ever used. The driver arrived on time, the car was spotless, and the pricing was completely transparent. Highly recommend!"</p>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-avatar">R</div>
+          <div><strong>Rahul Sharma</strong><span>Mumbai</span></div>
+          <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <p>"Booked an SUV for our family trip. Spacious, clean, and the driver was professional throughout. SwiftRide made our journey truly enjoyable and stress-free."</p>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-avatar">P</div>
+          <div><strong>Priya Nair</strong><span>Bangalore</span></div>
+          <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <p>"The Bike Taxi saves me 30 minutes every morning. Super convenient, affordable, and the drivers always know the quickest routes. Can't imagine my commute without it!"</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="SwiftRide" class="footer-logo"/>
+        <p>Your trusted premium ride partner across 200+ cities in India. Fast, safe, and always on time.</p>
+        <div class="social-row">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="#" onclick="navigate('home');return false;">Home</a></li>
+          <li><a href="#" onclick="navigate('book');return false;">Book a Ride</a></li>
+          <li><a href="#" onclick="navigate('history');return false;">Ride History</a></li>
+          <li><a href="#" onclick="navigate('about');return false;">About Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#" onclick="navigate('help');return false;">Help Center</a></li>
+          <li><a href="#">Safety Policy</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul class="contact-list">
+          <li><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
+          <li><i class="fa-solid fa-envelope"></i> support@swiftride.in</li>
+          <li><i class="fa-solid fa-location-dot"></i> New Delhi, India</li>
+          <li><i class="fa-solid fa-headset"></i> 24/7 Live Support</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 SwiftRide Technologies Pvt. Ltd. All rights reserved.</span>
+      <span>Made with <i class="fa-solid fa-heart" style="color:#e85d04"></i> in India</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════ PAGE: BOOK RIDE ═══════════════ -->
+<div id="page-book" class="page">
+  <div class="inner-hero">
+    <div class="inner-hero-text">
+      <h2>Book Your Ride</h2>
+      <p>Fill in the details below and get confirmed in seconds</p>
+    </div>
+  </div>
+  <div class="booking-container">
+
+    <!-- Step Progress -->
+    <div class="progress-bar-wrap">
+      <div class="progress-steps" id="progressSteps">
+        <div class="ps active" data-step="1"><div class="ps-circle">1</div><span>Location</span></div>
+        <div class="ps-line"></div>
+        <div class="ps" data-step="2"><div class="ps-circle">2</div><span>Cab Type</span></div>
+        <div class="ps-line"></div>
+        <div class="ps" data-step="3"><div class="ps-circle">3</div><span>Fare</span></div>
+        <div class="ps-line"></div>
+        <div class="ps" data-step="4"><div class="ps-circle">4</div><span>Details</span></div>
+        <div class="ps-line"></div>
+        <div class="ps" data-step="5"><div class="ps-circle">5</div><span>Payment</span></div>
+        <div class="ps-line"></div>
+        <div class="ps" data-step="6"><div class="ps-circle"><i class="fa-solid fa-check"></i></div><span>Done</span></div>
+      </div>
+    </div>
+
+    <!-- STEP 1: Location -->
+    <div class="book-step" id="step1">
+      <div class="book-card">
+        <h3><i class="fa-solid fa-location-dot text-amber"></i> Choose Your Locations</h3>
+        <div class="field-group">
+          <label>Pickup Location <span class="req">*</span></label>
+          <div class="field-icon-wrap">
+            <i class="fa-solid fa-circle green-col"></i>
+            <input type="text" id="s1pickup" placeholder="Enter your pickup address or landmark"/>
+          </div>
+        </div>
+        <div class="route-vis">
+          <div class="rv-dot green"></div>
+          <div class="rv-line"></div>
+          <div class="rv-dot orange"></div>
+        </div>
+        <div class="field-group">
+          <label>Drop Location <span class="req">*</span></label>
+          <div class="field-icon-wrap">
+            <i class="fa-solid fa-location-dot orange-col"></i>
+            <input type="text" id="s1drop" placeholder="Enter your destination"/>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>Date <span class="req">*</span></label>
+            <div class="field-icon-wrap">
+              <i class="fa-solid fa-calendar"></i>
+              <input type="date" id="s1date"/>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Time <span class="req">*</span></label>
+            <div class="field-icon-wrap">
+              <i class="fa-solid fa-clock"></i>
+              <input type="time" id="s1time"/>
+            </div>
+          </div>
+        </div>
+        <div class="saved-locations">
+          <span class="sl-label"><i class="fa-solid fa-heart"></i> Saved:</span>
+          <button class="sl-btn" onclick="fillLocations('Home – Dwarka Sector 7','Office – Connaught Place')">🏠 Home → Office</button>
+          <button class="sl-btn" onclick="fillLocations('Home – Dwarka Sector 7','IGI Airport T3')">✈️ Home → Airport</button>
+          <button class="sl-btn" onclick="fillLocations('Noida Sector 62','Delhi CP')">🏙️ Noida → Delhi</button>
+        </div>
+        <div class="step-actions right">
+          <button class="btn-next" onclick="gotoStep(2)">Find Cabs <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Cab Selection -->
+    <div class="book-step hidden" id="step2">
+      <div class="book-card">
+        <h3><i class="fa-solid fa-car text-amber"></i> Select Your Cab</h3>
+        <p class="step-hint">Showing available cabs from <strong id="s2pickup">–</strong> to <strong id="s2drop">–</strong></p>
+        <div class="cab-list" id="cabList">
+          <div class="cab-row" onclick="pickCab(this,'Mini',15,4,3)">
+            <div class="cab-r-icon mini-c"><i class="fa-solid fa-car-side"></i></div>
+            <div class="cab-r-info">
+              <div class="cab-r-top"><h4>Mini</h4><span class="av-tag green">5 Available</span></div>
+              <div class="cab-r-meta">
+                <span><i class="fa-solid fa-users"></i> 4 seats</span>
+                <span><i class="fa-solid fa-star"></i> 4.3 rating</span>
+                <span><i class="fa-solid fa-clock"></i> ~3 min away</span>
+                <span><i class="fa-solid fa-wind"></i> AC</span>
+              </div>
+            </div>
+            <div class="cab-r-price"><span>₹15</span><small>/km</small></div>
+          </div>
+          <div class="cab-row" onclick="pickCab(this,'Sedan',18,4,5)">
+            <div class="cab-r-icon sedan-c"><i class="fa-solid fa-car"></i></div>
+            <div class="cab-r-info">
+              <div class="cab-r-top"><h4>Sedan</h4><span class="av-tag green">8 Available</span></div>
+              <div class="cab-r-meta">
+                <span><i class="fa-solid fa-users"></i> 4 seats</span>
+                <span><i class="fa-solid fa-star"></i> 4.6 rating</span>
+                <span><i class="fa-solid fa-clock"></i> ~5 min away</span>
+                <span><i class="fa-solid fa-wind"></i> AC</span>
+              </div>
+            </div>
+            <div class="cab-r-price"><span>₹18</span><small>/km</small></div>
+          </div>
+          <div class="cab-row" onclick="pickCab(this,'SUV',22,6,7)">
+            <div class="cab-r-icon suv-c"><i class="fa-solid fa-truck-pickup"></i></div>
+            <div class="cab-r-info">
+              <div class="cab-r-top"><h4>SUV</h4><span class="av-tag yellow">2 Available</span></div>
+              <div class="cab-r-meta">
+                <span><i class="fa-solid fa-users"></i> 6 seats</span>
+                <span><i class="fa-solid fa-star"></i> 4.7 rating</span>
+                <span><i class="fa-solid fa-clock"></i> ~7 min away</span>
+                <span><i class="fa-solid fa-wind"></i> AC</span>
+              </div>
+            </div>
+            <div class="cab-r-price"><span>₹22</span><small>/km</small></div>
+          </div>
+          <div class="cab-row" onclick="pickCab(this,'Luxury',35,4,10)">
+            <div class="cab-r-icon luxury-c"><i class="fa-solid fa-crown"></i></div>
+            <div class="cab-r-info">
+              <div class="cab-r-top"><h4>Luxury</h4><span class="av-tag red">1 Available</span></div>
+              <div class="cab-r-meta">
+                <span><i class="fa-solid fa-users"></i> 4 seats</span>
+                <span><i class="fa-solid fa-star"></i> 4.9 rating</span>
+                <span><i class="fa-solid fa-clock"></i> ~10 min away</span>
+                <span><i class="fa-solid fa-wine-glass"></i> Premium</span>
+              </div>
+            </div>
+            <div class="cab-r-price"><span>₹35</span><small>/km</small></div>
+          </div>
+          <div class="cab-row" onclick="pickCab(this,'Bike Taxi',8,1,2)">
+            <div class="cab-r-icon bike-c"><i class="fa-solid fa-motorcycle"></i></div>
+            <div class="cab-r-info">
+              <div class="cab-r-top"><h4>Bike Taxi</h4><span class="av-tag green">12 Available</span></div>
+              <div class="cab-r-meta">
+                <span><i class="fa-solid fa-user"></i> 1 seat</span>
+                <span><i class="fa-solid fa-star"></i> 4.4 rating</span>
+                <span><i class="fa-solid fa-clock"></i> ~2 min away</span>
+                <span><i class="fa-solid fa-bolt"></i> Fastest</span>
+              </div>
+            </div>
+            <div class="cab-r-price"><span>₹8</span><small>/km</small></div>
+          </div>
+        </div>
+        <div class="step-actions between">
+          <button class="btn-back" onclick="gotoStep(1)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+          <button class="btn-next" onclick="gotoStep(3)" id="step2Next" disabled>View Fare <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Fare Estimate -->
+    <div class="book-step hidden" id="step3">
+      <div class="book-card">
+        <h3><i class="fa-solid fa-calculator text-amber"></i> Fare Estimate</h3>
+        <div class="fare-route-card">
+          <div class="frc-point"><div class="frc-dot green"></div><span id="fareFrom">–</span></div>
+          <div class="frc-dash">- - - - - - - - - - - - -</div>
+          <div class="frc-point"><div class="frc-dot orange"></div><span id="fareTo">–</span></div>
+        </div>
+        <div class="fare-breakdown">
+          <div class="fb-row"><span><i class="fa-solid fa-car"></i> Cab Type</span><strong id="fbCab">–</strong></div>
+          <div class="fb-row"><span><i class="fa-solid fa-road"></i> Distance</span><strong id="fbDist">– km</strong></div>
+          <div class="fb-row"><span><i class="fa-solid fa-rupee-sign"></i> Rate</span><strong id="fbRate">₹–/km</strong></div>
+          <div class="fb-row"><span><i class="fa-solid fa-flag-checkered"></i> Base Fare</span><strong id="fbBase">₹50</strong></div>
+          <div class="fb-row discount-row"><span><i class="fa-solid fa-tag"></i> Promo Discount</span><strong id="fbDiscount" class="green-text">-₹0</strong></div>
+          <div class="fb-total"><span>Total Fare</span><strong id="fbTotal">₹–</strong></div>
+        </div>
+        <div class="promo-row">
+          <input type="text" id="promoInput" placeholder="Enter promo code (try FIRST50)"/>
+          <button class="btn-apply" onclick="applyPromo()">Apply</button>
+        </div>
+        <div id="promoFeedback" class="promo-feedback"></div>
+        <div class="step-actions between">
+          <button class="btn-back" onclick="gotoStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+          <button class="btn-next" onclick="gotoStep(4)">Continue <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: Passenger Details -->
+    <div class="book-step hidden" id="step4">
+      <div class="book-card">
+        <h3><i class="fa-solid fa-user text-amber"></i> Passenger Details</h3>
+        <div class="field-row">
+          <div class="field-group">
+            <label>Full Name <span class="req">*</span></label>
+            <div class="field-icon-wrap"><i class="fa-solid fa-user"></i><input type="text" id="paxName" placeholder="Enter your full name"/></div>
+          </div>
+          <div class="field-group">
+            <label>Phone Number <span class="req">*</span></label>
+            <div class="field-icon-wrap"><span class="prefix-code">+91</span><input type="tel" id="paxPhone" placeholder="10-digit mobile number" maxlength="10"/></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Pickup Address (Detailed) <span class="req">*</span></label>
+          <input type="text" id="paxPickupDetail" placeholder="Flat no., building name, street, landmark"/>
+        </div>
+        <div class="field-group">
+          <label>Drop Address (Detailed) <span class="req">*</span></label>
+          <input type="text" id="paxDropDetail" placeholder="Flat no., building name, street, landmark"/>
+        </div>
+        <div class="field-group">
+          <label>Special Instructions (Optional)</label>
+          <input type="text" id="paxNote" placeholder="Any instructions for the driver?"/>
+        </div>
+        <div class="step-actions between">
+          <button class="btn-back" onclick="gotoStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+          <button class="btn-next" onclick="gotoStep(5)">Go to Payment <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: Payment -->
+    <div class="book-step hidden" id="step5">
+      <div class="book-card">
+        <h3><i class="fa-solid fa-credit-card text-amber"></i> Payment</h3>
+        <div class="pay-summary">
+          <div class="ps-info"><span>Total Payable</span><strong id="payTotal">₹320</strong></div>
+          <div class="ps-cab"><i class="fa-solid fa-car"></i> <span id="payCab">Sedan</span></div>
+        </div>
+        <p class="pay-label">Select Payment Method</p>
+        <div class="pay-methods" id="payMethods">
+          <div class="pay-opt active" onclick="pickPayment(this,'UPI')">
+            <i class="fa-solid fa-mobile-screen-button"></i><span>UPI</span>
+          </div>
+          <div class="pay-opt" onclick="pickPayment(this,'Google Pay')">
+            <i class="fa-brands fa-google-pay"></i><span>Google Pay</span>
+          </div>
+          <div class="pay-opt" onclick="pickPayment(this,'PhonePe')">
+            <i class="fa-solid fa-p"></i><span>PhonePe</span>
+          </div>
+          <div class="pay-opt" onclick="pickPayment(this,'Paytm')">
+            <i class="fa-solid fa-wallet"></i><span>Paytm</span>
+          </div>
+          <div class="pay-opt" onclick="pickPayment(this,'Credit Card')">
+            <i class="fa-solid fa-credit-card"></i><span>Credit Card</span>
+          </div>
+          <div class="pay-opt" onclick="pickPayment(this,'Debit Card')">
+            <i class="fa-regular fa-credit-card"></i><span>Debit Card</span>
+          </div>
+          <div class="pay-opt" onclick="pickPayment(this,'Cash')">
+            <i class="fa-solid fa-money-bill-wave"></i><span>Cash</span>
+          </div>
+        </div>
+        <div id="cardForm" class="card-form hidden">
+          <div class="field-group"><label>Card Number</label><input type="text" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)"/></div>
+          <div class="field-row">
+            <div class="field-group"><label>Expiry Date</label><input type="text" placeholder="MM / YY" maxlength="7"/></div>
+            <div class="field-group"><label>CVV</label><input type="text" placeholder="•••" maxlength="3"/></div>
+          </div>
+          <div class="field-group"><label>Name on Card</label><input type="text" placeholder="As printed on card"/></div>
+        </div>
+        <div class="secure-note"><i class="fa-solid fa-lock"></i> Your payment is 100% secure and encrypted</div>
+        <div class="step-actions between">
+          <button class="btn-back" onclick="gotoStep(4)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+          <button class="btn-confirm" onclick="confirmBooking()"><i class="fa-solid fa-lock"></i> Confirm & Pay ₹<span id="btnPayAmt">320</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: Confirmation -->
+    <div class="book-step hidden" id="step6">
+      <div class="book-card confirm-card">
+        <div class="confirm-icon-wrap"><div class="confirm-icon"><i class="fa-solid fa-check"></i></div></div>
+        <h2 class="confirm-title">Ride Confirmed! 🎉</h2>
+        <p class="confirm-sub">Your driver is on the way. You'll receive an SMS confirmation shortly.</p>
+        <div class="confirm-details" id="confirmDetails">
+          <div class="cd-row"><span>Booking ID</span><strong id="cdBookingId">–</strong></div>
+          <div class="cd-row"><span>Driver Name</span><strong id="cdDriver">–</strong></div>
+          <div class="cd-row"><span>Vehicle Number</span><strong id="cdVehicle">–</strong></div>
+          <div class="cd-row"><span>Cab Type</span><strong id="cdCab">–</strong></div>
+          <div class="cd-row"><span>ETA</span><strong id="cdEta">–</strong></div>
+          <div class="cd-row"><span>Total Fare</span><strong id="cdFare">–</strong></div>
+          <div class="cd-row"><span>Payment</span><strong id="cdPayment">–</strong></div>
+          <div class="cd-row"><span>Route</span><strong id="cdRoute">–</strong></div>
+        </div>
+        <div class="rating-section">
+          <p>Pre-rate your upcoming ride experience:</p>
+          <div class="star-row" id="starRow">
+            <span onclick="rateStar(1)">★</span><span onclick="rateStar(2)">★</span>
+            <span onclick="rateStar(3)">★</span><span onclick="rateStar(4)">★</span><span onclick="rateStar(5)">★</span>
+          </div>
+        </div>
+        <div class="confirm-btns">
+          <button class="btn-back" onclick="navigate('history')"><i class="fa-solid fa-clock-rotate-left"></i> View History</button>
+          <button class="btn-next" onclick="newBooking()"><i class="fa-solid fa-plus"></i> New Booking</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE: RIDE HISTORY ═══════════════ -->
+<div id="page-history" class="page">
+  <div class="inner-hero">
+    <div class="inner-hero-text">
+      <h2>Ride History</h2>
+      <p>All your past trips in one place</p>
+    </div>
+  </div>
+  <div class="content-wrap">
+    <div class="history-top">
+      <div class="filter-tabs" id="historyFilters">
+        <button class="ftab active" onclick="filterRides(this,'all')">All Rides</button>
+        <button class="ftab" onclick="filterRides(this,'Completed')">Completed</button>
+        <button class="ftab" onclick="filterRides(this,'Cancelled')">Cancelled</button>
+      </div>
+      <div class="history-stats">
+        <div class="hs-item"><span class="hs-num" id="totalRides">5</span><span class="hs-lbl">Total Rides</span></div>
+        <div class="hs-item"><span class="hs-num" id="totalSpent">₹5,210</span><span class="hs-lbl">Total Spent</span></div>
+        <div class="hs-item"><span class="hs-num">4.8★</span><span class="hs-lbl">Avg Rating</span></div>
+      </div>
+    </div>
+    <div class="history-list" id="historyList">
+      <div class="history-card" data-status="Completed">
+        <div class="hc-date"><div class="hc-day">12</div><div class="hc-month">Jul</div></div>
+        <div class="hc-route">
+          <div class="hc-from"><i class="fa-solid fa-circle green-col"></i> Delhi – Dwarka Sector 7</div>
+          <div class="hc-to"><i class="fa-solid fa-location-dot orange-col"></i> Noida Sector 62</div>
+        </div>
+        <div class="hc-info">
+          <span class="hc-cab"><i class="fa-solid fa-car"></i> Sedan</span>
+          <span class="hc-dist"><i class="fa-solid fa-road"></i> 28 km</span>
+        </div>
+        <div class="hc-fare">₹450</div>
+        <div class="hc-status completed">Completed</div>
+        <button class="btn-rebook" onclick="rebookHistory('Delhi – Dwarka Sector 7','Noida Sector 62')">Rebook</button>
+      </div>
+      <div class="history-card" data-status="Completed">
+        <div class="hc-date"><div class="hc-day">16</div><div class="hc-month">Jul</div></div>
+        <div class="hc-route">
+          <div class="hc-from"><i class="fa-solid fa-circle green-col"></i> Gurgaon Sector 29</div>
+          <div class="hc-to"><i class="fa-solid fa-location-dot orange-col"></i> Delhi Connaught Place</div>
+        </div>
+        <div class="hc-info">
+          <span class="hc-cab"><i class="fa-solid fa-car-side"></i> Mini</span>
+          <span class="hc-dist"><i class="fa-solid fa-road"></i> 26 km</span>
+        </div>
+        <div class="hc-fare">₹390</div>
+        <div class="hc-status completed">Completed</div>
+        <button class="btn-rebook" onclick="rebookHistory('Gurgaon Sector 29','Delhi CP')">Rebook</button>
+      </div>
+      <div class="history-card" data-status="Completed">
+        <div class="hc-date"><div class="hc-day">22</div><div class="hc-month">Jul</div></div>
+        <div class="hc-route">
+          <div class="hc-from"><i class="fa-solid fa-circle green-col"></i> Delhi – Vasant Kunj</div>
+          <div class="hc-to"><i class="fa-solid fa-location-dot orange-col"></i> IGI Airport Terminal 3</div>
+        </div>
+        <div class="hc-info">
+          <span class="hc-cab"><i class="fa-solid fa-truck-pickup"></i> SUV</span>
+          <span class="hc-dist"><i class="fa-solid fa-road"></i> 22 km</span>
+        </div>
+        <div class="hc-fare">₹780</div>
+        <div class="hc-status completed">Completed</div>
+        <button class="btn-rebook" onclick="rebookHistory('Delhi – Vasant Kunj','IGI Airport T3')">Rebook</button>
+      </div>
+      <div class="history-card" data-status="Cancelled">
+        <div class="hc-date"><div class="hc-day">28</div><div class="hc-month">Jul</div></div>
+        <div class="hc-route">
+          <div class="hc-from"><i class="fa-solid fa-circle green-col"></i> Noida Sector 15</div>
+          <div class="hc-to"><i class="fa-solid fa-location-dot orange-col"></i> Faridabad Old</div>
+        </div>
+        <div class="hc-info">
+          <span class="hc-cab"><i class="fa-solid fa-car-side"></i> Mini</span>
+          <span class="hc-dist"><i class="fa-solid fa-road"></i> – km</span>
+        </div>
+        <div class="hc-fare">₹0</div>
+        <div class="hc-status cancelled">Cancelled</div>
+        <button class="btn-rebook" onclick="rebookHistory('Noida Sector 15','Faridabad Old')">Rebook</button>
+      </div>
+      <div class="history-card" data-status="Completed">
+        <div class="hc-date"><div class="hc-day">03</div><div class="hc-month">Aug</div></div>
+        <div class="hc-route">
+          <div class="hc-from"><i class="fa-solid fa-circle green-col"></i> Delhi Connaught Place</div>
+          <div class="hc-to"><i class="fa-solid fa-location-dot orange-col"></i> Agra Taj Mahal Gate</div>
+        </div>
+        <div class="hc-info">
+          <span class="hc-cab"><i class="fa-solid fa-crown"></i> Luxury</span>
+          <span class="hc-dist"><i class="fa-solid fa-road"></i> 225 km</span>
+        </div>
+        <div class="hc-fare">₹3,590</div>
+        <div class="hc-status completed">Completed</div>
+        <button class="btn-rebook" onclick="rebookHistory('Delhi CP','Agra Taj Mahal')">Rebook</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE: PROFILE ═══════════════ -->
+<div id="page-profile" class="page">
+  <div class="inner-hero">
+    <div class="inner-hero-text"><h2>My Profile</h2><p>Manage your account settings and preferences</p></div>
+  </div>
+  <div class="content-wrap profile-wrap">
+    <div class="profile-left">
+      <div class="profile-card">
+        <div class="profile-av">R</div>
+        <div class="profile-meta">
+          <h3 id="pName">Rajesh Verma</h3>
+          <p id="pPhone"><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+          <p id="pEmail"><i class="fa-solid fa-envelope"></i> rajesh.v@email.com</p>
+        </div>
+        <button class="btn-edit-profile" id="editProfileBtn" onclick="toggleEditProfile()"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+      </div>
+      <div class="edit-profile-form hidden" id="editProfileForm">
+        <h4>Edit Profile</h4>
+        <div class="field-group"><label>Full Name</label><input type="text" id="epName" value="Rajesh Verma"/></div>
+        <div class="field-group"><label>Phone</label><input type="text" id="epPhone" value="+91 98765 43210"/></div>
+        <div class="field-group"><label>Email</label><input type="email" id="epEmail" value="rajesh.v@email.com"/></div>
+        <div class="ep-btns">
+          <button class="btn-back" onclick="toggleEditProfile()">Cancel</button>
+          <button class="btn-next" onclick="saveProfile()">Save Changes</button>
+        </div>
+      </div>
+      <div class="profile-stats-card">
+        <div class="psc-item"><span class="psc-num" id="psRides">5</span><span class="psc-lbl">Total Rides</span></div>
+        <div class="psc-div"></div>
+        <div class="psc-item"><span class="psc-num" id="psSpent">₹5,210</span><span class="psc-lbl">Total Spent</span></div>
+        <div class="psc-div"></div>
+        <div class="psc-item"><span class="psc-num">4.8★</span><span class="psc-lbl">Your Rating</span></div>
+      </div>
+    </div>
+    <div class="profile-right">
+      <div class="fav-card">
+        <h4><i class="fa-solid fa-heart text-amber"></i> Favourite Locations</h4>
+        <div class="fav-item-list">
+          <div class="fav-loc-item">
+            <div class="fli-icon home"><i class="fa-solid fa-house"></i></div>
+            <div class="fli-text"><strong>Home</strong><p>Dwarka Sector 7, New Delhi</p></div>
+            <button onclick="rebookHistory('Dwarka Sector 7','Office – Connaught Place')">Use</button>
+          </div>
+          <div class="fav-loc-item">
+            <div class="fli-icon office"><i class="fa-solid fa-briefcase"></i></div>
+            <div class="fli-text"><strong>Office</strong><p>Connaught Place, New Delhi</p></div>
+            <button onclick="rebookHistory('Connaught Place','Dwarka Sector 7')">Use</button>
+          </div>
+          <div class="fav-loc-item">
+            <div class="fli-icon airport"><i class="fa-solid fa-plane-departure"></i></div>
+            <div class="fli-text"><strong>Airport</strong><p>IGI Airport Terminal 3, Delhi</p></div>
+            <button onclick="rebookHistory('Dwarka Sector 7','IGI Airport T3')">Use</button>
+          </div>
+        </div>
+      </div>
+      <div class="payment-hist-card">
+        <h4><i class="fa-solid fa-receipt text-amber"></i> Recent Payments</h4>
+        <div class="ph-list">
+          <div class="ph-item"><div class="phi-info"><strong>03 Aug – Delhi → Agra</strong><span>Luxury · UPI</span></div><strong class="phi-amt">₹3,590</strong></div>
+          <div class="ph-item"><div class="phi-info"><strong>22 Jul – Delhi → Airport</strong><span>SUV · Credit Card</span></div><strong class="phi-amt">₹780</strong></div>
+          <div class="ph-item"><div class="phi-info"><strong>16 Jul – Gurgaon → Delhi</strong><span>Mini · Cash</span></div><strong class="phi-amt">₹390</strong></div>
+          <div class="ph-item"><div class="phi-info"><strong>12 Jul – Delhi → Noida</strong><span>Sedan · UPI</span></div><strong class="phi-amt">₹450</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE: HELP ═══════════════ -->
+<div id="page-help" class="page">
+  <div class="inner-hero">
+    <div class="inner-hero-text"><h2>Help Center</h2><p>We're available 24/7 to assist you</p></div>
+  </div>
+  <div class="content-wrap help-wrap">
+    <div class="help-left">
+      <div class="help-search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search for help topics..."/>
+      </div>
+      <h4 class="faq-heading">Frequently Asked Questions</h4>
+      <div class="faq-accordion">
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)"><span>How do I cancel a ride?</span><i class="fa-solid fa-plus"></i></button>
+          <div class="faq-ans">Go to Ride History, find your active booking, and tap "Cancel Ride". Free cancellation within 2 minutes of booking. After that, a ₹30 cancellation fee may apply.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)"><span>What payment methods are accepted?</span><i class="fa-solid fa-plus"></i></button>
+          <div class="faq-ans">We accept UPI (Google Pay, PhonePe, Paytm), Credit Cards, Debit Cards, and Cash. All digital payments are protected with 256-bit SSL encryption.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)"><span>How is the fare calculated?</span><i class="fa-solid fa-plus"></i></button>
+          <div class="faq-ans">Fare = Base Fare (₹50) + (Distance in km × Price per km). Tolls and parking, if applicable, are charged extra. You always see the estimated fare before confirming your booking.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)"><span>Are all drivers verified?</span><i class="fa-solid fa-plus"></i></button>
+          <div class="faq-ans">Yes. Every SwiftRide driver undergoes thorough police verification, document checks, background screening, and completes our mandatory safety training program before onboarding.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)"><span>I left something in the cab. What do I do?</span><i class="fa-solid fa-plus"></i></button>
+          <div class="faq-ans">Contact us immediately at support@swiftride.in or call +91 98765 43210. We'll coordinate with the driver to arrange return of your belongings at the earliest.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)"><span>How do I use a promo code?</span><i class="fa-solid fa-plus"></i></button>
+          <div class="faq-ans">During booking, in the Fare Estimate step, you'll see a "Enter Promo Code" field. Type your code (e.g., FIRST50) and click Apply. The discount will be applied instantly.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)"><span>Can I book an outstation ride?</span><i class="fa-solid fa-plus"></i></button>
+          <div class="faq-ans">Absolutely! SwiftRide supports outstation trips across India. Select your destination city, choose a Sedan, SUV, or Luxury cab, and book for any future date and time.</div>
+        </div>
+      </div>
+    </div>
+    <div class="help-right">
+      <div class="contact-box">
+        <h4>Get In Touch</h4>
+        <div class="contact-row"><div class="cr-icon"><i class="fa-solid fa-phone"></i></div><div><strong>24/7 Helpline</strong><p>+91 98765 43210</p></div></div>
+        <div class="contact-row emergency"><div class="cr-icon red"><i class="fa-solid fa-triangle-exclamation"></i></div><div><strong>Emergency SOS</strong><p>112 (National Emergency)</p></div></div>
+        <div class="contact-row"><div class="cr-icon"><i class="fa-brands fa-whatsapp"></i></div><div><strong>WhatsApp Support</strong><p>+91 98765 43210</p></div></div>
+        <div class="contact-row"><div class="cr-icon"><i class="fa-solid fa-envelope"></i></div><div><strong>Email Support</strong><p>support@swiftride.in</p></div></div>
+        <button class="btn-chat" onclick="showToast('Connecting to live agent...')"><i class="fa-solid fa-comments"></i> Start Live Chat</button>
+      </div>
+      <div class="safety-box">
+        <h4><i class="fa-solid fa-shield-halved"></i> Safety Tips</h4>
+        <ul class="safety-list">
+          <li>Always verify the cab number and driver name before boarding</li>
+          <li>Share your live trip details with a trusted contact</li>
+          <li>Trust your instincts — cancel and report if uncomfortable</li>
+          <li>Use the in-app SOS button for immediate help</li>
+          <li>Never share OTP or personal financial details</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE: ABOUT ═══════════════ -->
+<div id="page-about" class="page">
+  <div class="inner-hero">
+    <div class="inner-hero-text"><h2>About SwiftRide</h2><p>Driving India forward, one ride at a time since 2019</p></div>
+  </div>
+  <div class="content-wrap">
+    <div class="about-mv">
+      <div class="mv-card">
+        <div class="mv-icon"><i class="fa-solid fa-bullseye"></i></div>
+        <h3>Our Mission</h3>
+        <p>To make safe, affordable, and comfortable rides accessible to every Indian — from bustling metros to growing tier-2 cities — through technology that people can trust.</p>
+      </div>
+      <div class="mv-card">
+        <div class="mv-icon"><i class="fa-solid fa-eye"></i></div>
+        <h3>Our Vision</h3>
+        <p>To become India's most loved mobility platform by 2030 — powered by 500,000 happy drivers and 50 million rides every month across all 28 states and 8 union territories.</p>
+      </div>
+    </div>
+    <div class="about-services-wrap">
+      <h3 class="section-h2" style="text-align:center;margin-bottom:8px;">Our Services</h3>
+      <p class="section-sub">A comprehensive mobility solution for every need</p>
+      <div class="about-svc-grid">
+        <div class="asvc"><i class="fa-solid fa-car-side"></i><span>Mini Cabs</span></div>
+        <div class="asvc"><i class="fa-solid fa-car"></i><span>Sedan Rides</span></div>
+        <div class="asvc"><i class="fa-solid fa-truck-pickup"></i><span>SUV Bookings</span></div>
+        <div class="asvc"><i class="fa-solid fa-crown"></i><span>Luxury Cars</span></div>
+        <div class="asvc"><i class="fa-solid fa-motorcycle"></i><span>Bike Taxi</span></div>
+        <div class="asvc"><i class="fa-solid fa-road"></i><span>Outstation Trips</span></div>
+        <div class="asvc"><i class="fa-solid fa-plane-departure"></i><span>Airport Transfers</span></div>
+        <div class="asvc"><i class="fa-solid fa-briefcase"></i><span>Corporate Rides</span></div>
+      </div>
+    </div>
+    <div class="about-numbers-row">
+      <div class="an-box"><span class="an-big">2M+</span><span class="an-lbl">Happy Riders</span></div>
+      <div class="an-box"><span class="an-big">50K+</span><span class="an-lbl">Verified Drivers</span></div>
+      <div class="an-box"><span class="an-big">200+</span><span class="an-lbl">Cities Covered</span></div>
+      <div class="an-box"><span class="an-big">5 Yrs</span><span class="an-lbl">Of Excellence</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast hidden"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
